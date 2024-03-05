@@ -34,16 +34,7 @@ class PostAdController extends Controller
 
     public function store(Request $request)
     {
-        // photo validation 
-
-
         
-        // $request->validate([
-        //     'floor_pic' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            
-        //    'title'=>'required|max:30',
-        //     'photo.*' => 'mimes:jpeg,png,jpg,gif,svg|max:2048'
-        // ]);
 
         $validator = Validator::make($request->all(), [
             'floor_pic' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',

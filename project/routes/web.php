@@ -362,6 +362,7 @@ Route::middleware(['maintenance'])->group(function () {
             
         Route::get('/dashboard', [UserController::class,'index'])->name('user.dashboard');
         Route::get('/verification', [UserController::class,'verification'])->name('user.verification');
+        Route::post('/verification', [UserController::class,'verificationSubmit'])->name('user.verification.submit');
 
         Route::post('/profile/update', [UserController::class,'profileUpdate'])->name('user.profile.update');
 

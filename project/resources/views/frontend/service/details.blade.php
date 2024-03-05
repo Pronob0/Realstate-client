@@ -60,6 +60,15 @@
                                     <td>@lang('Category')</td>
                                     <td>{{ $service->category->name }}</td>
                                 </tr>
+                                <tr>
+                                    <td>@lang('Region')</td>
+                                    <td>{{ $service->region }}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>@lang('Postcode')</td>
+                                    <td>{{ $service->postcode }}</td>
+                                </tr>
                                 
                                 <tr>
                                     <td>@lang('Location')</td>

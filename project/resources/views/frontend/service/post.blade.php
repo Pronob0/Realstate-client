@@ -72,7 +72,32 @@
                                                 <input type="text" class="form-control" name="location" id="title" required placeholder="{{ __('Location') }}" value="{{old('title')}}">
                                             </div>
 
-                                           
+                                            <div class="form-group col-md-6">
+                                                <label>@lang('Region')</label>
+                                                <select id="region" class="form-control" name="region">
+                                                    
+                                                    <option value="Wales">@lang('Wales')</option> 
+                                                    <option value="East Midlands">@lang('East Midlands')</option> 
+                                                    <option value="East of England">@lang('East of England')</option>
+                                                    <option value="London">@lang('London')</option>
+                                                    <option value="North East & Cumbria">@lang('North East & Cumbria')</option>
+                                                    <option value="North West">@lang('North West')</option>
+                                                    <option value="Northern Ireland">@lang('Northern Ireland')</option>
+                                                    <option value="Scotland">@lang('Scotland')</option>
+                                                    <option value="South East">@lang('South East')</option>
+                                                    <option value="South West">@lang('South West')</option>
+                                                    <option value="West Midlands">@lang('West Midlands')</option>
+                                                    <option value="Yorkshire & Humberside">@lang('Yorkshire & Humberside')</option>
+                                            
+                                                </select>
+                                            </div>
+
+
+                                            <div class="form-group col-md-12">
+                                                <label><b>@lang('Postcode')</b></label>
+                                                <input  type="text" class="form-control" placeholder="Postcode" name="postcode" >
+                                            </div>
+
                                         </div>
                                     </div>
                                     <!-- Location -->
@@ -81,6 +106,7 @@
                                         <label><b>@lang('job Photo')</b></label>
                                         <input  type="file" class="form-control" placeholder="Job photo" name="photo" >
                                     </div>
+                                    
 
                                     <div class="form-group col-lg-12 col-md-12">
                                         <textarea class="form-control" id="textarea" name="description" rows="5"></textarea>

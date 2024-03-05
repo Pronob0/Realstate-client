@@ -340,6 +340,8 @@ class FrontendController extends Controller
             'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'budget' => 'required|integer',
             'location' => 'required|string',
+            'region' => 'required|string',
+            'postcode' => 'required|string',
             
         ]);
 
@@ -350,6 +352,8 @@ class FrontendController extends Controller
         $data->budget = $request->budget;
         $data->location = $request->location;
         $data->user_id = auth()->user()->id;
+        $data->region = $request->region;
+        $data->postcode = $request->postcode;
         if(isset($request['photo'])){
             $status = MediaHelper::ExtensionValidation($request['photo']);
             if(!$status){

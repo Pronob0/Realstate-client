@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 04, 2024 at 05:09 PM
--- Server version: 10.4.27-MariaDB
--- PHP Version: 8.1.12
+-- Generation Time: Mar 05, 2024 at 12:32 PM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -733,15 +733,17 @@ CREATE TABLE `services` (
   `location` varchar(255) NOT NULL,
   `budget` double NOT NULL,
   `photo` varchar(255) NOT NULL,
-  `user_id` int(11) NOT NULL DEFAULT 0
+  `user_id` int(11) NOT NULL DEFAULT 0,
+  `region` varchar(255) DEFAULT NULL,
+  `postcode` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `services`
 --
 
-INSERT INTO `services` (`id`, `category_id`, `title`, `slug`, `description`, `location`, `budget`, `photo`, `user_id`) VALUES
-(3, 2, 'Innovative Abstract Icon Logo Design', 'innovative-abstract-icon-logo-design', '<span style=\"color: rgb(24, 32, 43); font-family: &quot;Open Sans&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; background-color: rgb(245, 247, 250);\">Website Design: Develop a modern, user-friendly, and responsive website that reflects our consultancy\'s professionalism and expertise. Design a clean and intuitive layout with easy navigation to showcase our services, team, and contact information. Integration of essential features, such as a contact form, social media links, and a blog section. Logo Design: Create a unique and memorable logo that represents our consultancy\'s values and vision. Ensure the logo is versatile and scalable for various marketing materials and platforms. Provide multiple</span><br>', 'Uttara, Sector 10, Dhaka, Bangladeshh', 500, '15585275951709480012.png', 1);
+INSERT INTO `services` (`id`, `category_id`, `title`, `slug`, `description`, `location`, `budget`, `photo`, `user_id`, `region`, `postcode`) VALUES
+(3, 2, 'Innovative Abstract Icon Logo Design', 'innovative-abstract-icon-logo-design', '<span style=\"color: rgb(24, 32, 43); font-family: &quot;Open Sans&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; background-color: rgb(245, 247, 250);\">Website Design: Develop a modern, user-friendly, and responsive website that reflects our consultancy\'s professionalism and expertise. Design a clean and intuitive layout with easy navigation to showcase our services, team, and contact information. Integration of essential features, such as a contact form, social media links, and a blog section. Logo Design: Create a unique and memorable logo that represents our consultancy\'s values and vision. Ensure the logo is versatile and scalable for various marketing materials and platforms. Provide multiple</span><br>', 'Uttara, Sector 10, Dhaka, Bangladeshh', 500, '15585275951709480012.png', 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -3934,6 +3936,22 @@ INSERT INTO `user_owner_conversations` (`id`, `contact_id`, `user_id`, `owner_id
 (3, 2, 8, 1, 'sdfasd', 0, '2023-12-18 10:44:20', '2023-12-18 10:44:20'),
 (4, 2, 1, 8, 'dfgsdf', 0, '2023-12-18 10:45:21', '2023-12-18 10:45:21');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `verifications`
+--
+
+CREATE TABLE `verifications` (
+  `id` int(11) NOT NULL,
+  `user_id` int(15) NOT NULL,
+  `qualification` varchar(255) DEFAULT NULL,
+  `criminal_record` varchar(255) DEFAULT NULL,
+  `id_card` varchar(255) DEFAULT NULL,
+  `id_image` varchar(255) DEFAULT NULL,
+  `status` tinyint(2) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 --
 -- Indexes for dumped tables
 --
@@ -4176,6 +4194,12 @@ ALTER TABLE `user_owner_conversations`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `verifications`
+--
+ALTER TABLE `verifications`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -4400,6 +4424,12 @@ ALTER TABLE `user_contacts`
 --
 ALTER TABLE `user_owner_conversations`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `verifications`
+--
+ALTER TABLE `verifications`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

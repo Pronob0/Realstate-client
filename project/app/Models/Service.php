@@ -17,7 +17,9 @@ class Service extends Model
         'description',
         'location',
         'budget',
-        'photo'
+        'photo',
+        'region',
+        'postcode',
     ];
 
     public function category()

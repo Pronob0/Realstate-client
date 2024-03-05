@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Helpers\MediaHelper;
 use App\Models\UserContact;
 use App\Models\UserOwnerConversation;
+use App\Models\Verification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -24,6 +26,18 @@ class UserController extends Controller
 
     public function profileUpdate(Request $request)
     {
+        $validatior = Validator::make($request->all(),[
+            'name' => 'required',
+            'email' => 'required|email',
+            'phone' => 'required',
+            'address' => 'required',
+            'photo' => 'mimes:jpeg,jpg,png,gif',
+        ]);
+
+        if($validatior->fails()){
+            return redirect()->back()->withErrors($validatior)->withInput();
+        }
+
         $user = auth()->user();
         $input = $request->all();
         if( $request->hasFile('photo') ){
@@ -72,6 +86,37 @@ class UserController extends Controller
     public function verification(){
         $user = auth()->user();
         return view('user.verification',compact('user'));
+    }
+
+
+    public function verificationSubmit(Request $request){
+
+        $validator = Validator::make($request->all(),[
+            'qualification' => 'required',
+            'id_card' => 'required',
+            'id_image' => 'required|mimes:jpeg,jpg,png,gif',
+            'criminal_record' => 'required|mimes:jpeg,jpg,png,gif',
+        ]);
+
+
+        $user = auth()->user();
+        $input = $request->all();
+        if( $request->hasFile('id_image') ){
+            $image = $request->file('id_image');
+            $image_name = time().'.'.$image->getClientOriginalExtension();
+            $image->move('assets/images',$image_name);
+            $input['id_image'] = $image_name;
+        }
+        if( $request->hasFile('criminal_record') ){
+            $image = $request->file('criminal_record');
+            $image_name = time().'.'.$image->getClientOriginalExtension();
+            $image->move('assets/images',$image_name);
+            $input['criminal_record'] = $image_name;
+        }
+
+        $input['user_id'] = $user->id;
+        $verification = Verification::create($input);
+        return redirect()->back()->with('message','Verification submitted successfully');
     }
 
 
