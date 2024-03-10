@@ -5,6 +5,19 @@
                 <a href="{{ route('admin.dashboard') }}" class="nav-link"><i
                         class="fas fa-fire"></i><span>@lang('Dashboard')</span></a>
             </li>
+
+            <li class="nav-item {{menu('admin.transactions')}}">
+                <a href="{{route('admin.transactions')}}" class="nav-link"><i
+                    class="fas fa-exchange-alt"></i><span>@lang('Transaction Report')</span></a>
+              </li>
+
+            <li class="menu-header">@lang('Manage')</li>
+               
+                <li class="nav-item {{menu(['admin.user.index','admin.user.details'])}}">
+                <a href="{{route('admin.user.index')}}" class="nav-link"><i class="fas fa-users"></i><span>@lang('Manage
+                    User')</span></a>
+             </li>
+              
     
     
             <li class="nav-item dropdown {{ menu(['admin.bcategory*', 'admin.bsubcategory*','admin.blog*']) }}">

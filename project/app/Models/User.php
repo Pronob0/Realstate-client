@@ -46,31 +46,6 @@ class User extends Authenticatable
     ];
 
 
-    // domain relation
-    public function domain()
-    {
-        return $this->belongsTo(Domain::class,'domain_id','id');
-    }
-
-    public function user_package()
-    {
-        return $this->hasOne(PackageOrder::class,'user_id','id')->orderBy('id','DESC')->where('status',1)->with('package_info');
-    }
-
-    public function package_orders()
-    {
-        return $this->hasMany(PackageOrder::class,'user_id','id')->orderBy('id','DESC')->with('package_info')->orderby('id','DESC');
-    }
-
-    public function products()
-    {
-        return $this->hasMany(Product::class,'user_id','id')->with('category','brand','subcategory')->orderby('id','DESC');
-    }
-
-    public function orders()
-    {
-        return $this->hasMany(Order::class,'user_id','id')->orderby('id','DESC');
-    }
 
     public function users()
     {
@@ -87,9 +62,9 @@ class User extends Authenticatable
         return $this->hasMany(Brand::class,'user_id','id')->orderby('id','DESC');
     }
 
-    public function requestDomain()
+    public function transactions()
     {
-        return $this->hasMany(DomainRequest::class,'user_id')->orderby('id','DESC');
+        return $this->hasMany(Transaction::class);
     }
 
     public function IsUserDemo(){

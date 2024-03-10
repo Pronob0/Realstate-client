@@ -13,6 +13,7 @@ use App\Models\Project;
 use App\Models\Service;
 use App\Models\Subscriber;
 use App\Models\Team;
+use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -260,6 +261,53 @@ class AdminController extends Controller
             }
         }
         rmdir($dirPath);
+    }
+
+    public function profitReports()
+    {
+        $remark = request('remark');
+        $search = request('search');
+        $range = request('range');
+        $startDate = null;
+        $endDate   = null;
+      
+        if(request('range') != null){
+            $date     = explode('-',$range);
+            $startDate = @trim($date[0]);
+            $endDate   = @trim($date[1]);
+
+            if ($startDate && !preg_match("/\d{2}\/\d{2}\/\d{4}/",$startDate))  return back()->with('error','Invalid date format');
+        
+            if ($endDate && !preg_match("/\d{2}\/\d{2}\/\d{4}/",$endDate))  return back()->with('error','Invalid date format');
+        }
+        
+        $logs = Transaction::when($remark,function($q) use($remark){
+            return $q->where('remark',$remark);
+        })
+        ->when($search,function($q) use($search){
+            return $q->where('trnx',$search);
+        })
+        ->when(request('range'),function($q) use($startDate,$endDate){
+            return $q->whereDate('created_at','>=',dateFormat($startDate,'Y-m-d'))->whereDate('created_at','<=',dateFormat($endDate,'Y-m-d'));
+        })
+        ->where('charge','>',0)->with('currency')->latest()->paginate(15);
+        return view('admin.profit_report',compact('logs','range'));
+    }
+
+
+    public function transactions()
+    {
+        $remark = request('remark');
+        $search = request('search');
+
+        $transactions = Transaction::when($remark,function($q) use($remark){
+            return $q->where('remark',$remark);
+        })
+        ->when($search,function($q) use($search){
+            return $q->where('trnx',$search);
+        })
+        ->with('currency')->latest()->paginate(15);
+        return view('admin.transactions',compact('transactions','search'));
     }
 
 }

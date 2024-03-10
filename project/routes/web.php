@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\ManageRoleController;
 use App\Http\Controllers\Admin\ManageStaffController;
 use App\Http\Controllers\Admin\ManageTestimonialController;
+use App\Http\Controllers\Admin\ManageUserController;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\PaymentGatewayController;
 use App\Http\Controllers\Admin\ProductCategoryController;
@@ -63,6 +64,22 @@ Route::prefix('admin')->name('admin.')->group(function () {
         
 
         Route::get('/', [AdminController::class, 'index'])->name('dashboard');
+
+        Route::get('manage-users/', [ManageUserController::class, 'index'])->name('user.index')->middleware('permission:manage user');
+        Route::get('user/create', [ManageUserController::class, 'create'])->name('user.create')->middleware('permission:manage user');
+        Route::post('user/store', [ManageUserController::class, 'store'])->name('user.store')->middleware('permission:manage user');
+        Route::get('user-details/{id}', [ManageUserController::class, 'details'])->name('user.details')->middleware('permission:edit user');
+        Route::post('user-profile/update/{id}', [ManageUserController::class, 'profileUpdate'])->name('user.profile.update')->middleware('permission:update user');
+        Route::post('balance-modify', [ManageUserController::class, 'modifyBalance'])->name('user.balance.modify')->middleware('permission:user balance modify');
+        Route::get('user-login/info/{id}', [ManageUserController::class, 'loginInfo'])->name('user.login.info')->middleware('permission:user login logs');
+
+
+
+        // Transaction Routes
+       //profit report
+       Route::get('/profit-reports', [AdminController::class, 'profitReports'])->name('profit.report')->middleware('permission:profit report');
+       Route::get('/transaction-report', [AdminController::class, 'transactions'])->name('transactions')->middleware('permission:transactions');
+
         
         Route::get('/password', [AdminController::class, 'passwordreset'])->name('password');
         Route::post('/password/update', [AdminController::class, 'changepass'])->name('password.update');

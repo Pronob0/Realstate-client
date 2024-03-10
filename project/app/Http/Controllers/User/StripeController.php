@@ -8,6 +8,7 @@ use App\Models\Currency;
 use App\Models\Generalsetting;
 use App\Models\PaymentGateway;
 use App\Models\Subscription;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -107,6 +108,19 @@ class StripeController extends Controller
                 $subscription->payment_status = 'Completed';
                 $subscription->status = 1;
                 $subscription->save();
+
+
+                // Transaction 
+                $transaction = new Transaction();
+                $transaction->trnx_number = $item_number;
+                $transaction->user_id = $user->id;
+                $transaction->amount = $request['amount'];
+                $transaction->currency_id = $currency->id;
+                $transaction->type = '-';
+                $transaction->remark = 'subscription';
+                $transaction->details = 'Subscription of '.$gs->title.' Plan';
+                $transaction->save();
+
 
                 $user->is_plan = $request['plan_id'];
                 $user->save();
