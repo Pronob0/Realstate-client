@@ -42,7 +42,7 @@
                             <tr>
                                 <th>@lang('Title')</th>
                                 <th>@lang('Category')</th>
-                                <th>@lang('Subcategory')</th>
+                               
                                 <th>@lang('property Type')</th>
                                 <th>@lang('Actions')</th>
                             </tr>
@@ -52,9 +52,7 @@
                             <tr>
                               <td data-label="@lang('Title')">{{$item->title}}</td>
                               <td data-label="@lang('Category')">{{__($item->category->name)}}</td>
-                              <td data-label="@lang('Subcategory')">
-                                {{__($item->subcategory->name)}}
-                              </td>
+                             
                               <td data-label="@lang('Property type')">
                                 {{__($item->property_type)}}
                               </td>

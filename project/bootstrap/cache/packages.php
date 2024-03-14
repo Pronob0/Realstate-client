@@ -1,15 +1,4 @@
 <?php return array (
-  'anhskohbo/no-captcha' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'Anhskohbo\\NoCaptcha\\NoCaptchaServiceProvider',
-    ),
-    'aliases' => 
-    array (
-      'NoCaptcha' => 'Anhskohbo\\NoCaptcha\\Facades\\NoCaptcha',
-    ),
-  ),
   'brian2694/laravel-toastr' => 
   array (
     'providers' => 
