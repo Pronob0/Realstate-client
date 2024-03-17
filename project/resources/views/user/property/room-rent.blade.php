@@ -1,26 +1,26 @@
 
 <div class="form-group col-md-6">
     <label>@lang('Street Name')</label>
-    <input type="text" class="form-control" placeholder="Street Name" name="street" required>
+    <input type="text" class="form-control" placeholder="Street Name" value="{{ $advertisement->street }}" name="street" required>
 </div>
 
 <div class="form-group col-md-6">
     <label>@lang('Post Code')</label>
-    <input type="text" class="form-control" placeholder="Post Code" name="postcode" required>
+    <input type="text" class="form-control" value="{{ $advertisement->postcode }}" placeholder="Post Code" name="postcode" required>
 </div>
 
 <div class="form-group col-md-6">
     <label>@lang('Furnished')</label>
     <select id="furnished" class="form-control" name="furnished">
-        <option value="Fully">@lang('Fully')</option> 
-        <option value="Partially">@lang('Partially')</option> 
-        <option value="No">@lang('No')</option>
+        <option {{ $advertisement->furnished=="Fully" ? 'selected':'' }} value="Fully">@lang('Fully')</option> 
+        <option {{ $advertisement->furnished=="Partially" ? 'selected':'' }} value="Partially">@lang('Partially')</option> 
+        <option {{ $advertisement->furnished=="No" ? 'selected':'' }} value="No">@lang('No')</option>
     </select>
 </div>
 
 <div class="form-group col-md-6">
     <label>@lang('Town')</label>
-    <input type="text" class="form-control" placeholder="Town" name="location" required>
+    <input type="text" class="form-control" placeholder="Town" value="{{ $advertisement->location }}" name="location" required>
 </div>
 
 <div class="head-ta w-100 mb-4">
@@ -31,30 +31,30 @@
 
 <div class="form-group col-md-6">
     <label>@lang('Monthly Rent For Single Room ')</label>
-    <input type="number" class="form-control" placeholder="{{ $currency->name }}" name="monthly_rent" required>
+    <input type="number" class="form-control" placeholder="{{ $currency->name }}" name="monthly_rent" value="{{ $advertisement->monthly_rent }}" required>
 </div>
  
 <div class="form-group col-md-6">
     <label>@lang('Minimum Tenancy Length ')</label>
-    <input type="number" class="form-control" placeholder="Months" name="month" required>
+    <input type="number" class="form-control" value="{{ $advertisement->month }}" placeholder="Months" name="month" required>
 </div>
 
 <div class="form-group col-md-6">
     <label>@lang('Weekly Rent For Single Room')</label>
-    <input type="number" class="form-control" placeholder="{{ $currency->name }}" name="weekly_rent" required>
+    <input type="number" class="form-control" value="{{ $advertisement->weekly_rent }}" placeholder="{{ $currency->name }}" name="weekly_rent" required>
 </div>
 
 <div class="form-group col-md-6">
     <label>@lang('Maximum Number of Tenants ')</label>
-    <input type="number" class="form-control" placeholder="maximum number of tenants" name="tenance_number" required>
+    <input type="number" class="form-control" placeholder="maximum number of tenants" name="tenance_number" required value="{{ $advertisement->tenance_number }}">
 </div>
 <div class="form-group col-md-6">
     <label>@lang('Deposit Amounts')</label>
-    <input type="number" class="form-control" placeholder="{{ $currency->name }}" name="deposit" required>
+    <input type="number" class="form-control" placeholder="{{ $currency->name }}" name="deposit" required value="{{ $advertisement->deposit }}">
 </div>
 <div class="form-group col-md-6">
     <label>@lang('Earliest Move In Date')</label>
-    <input type="date" class="form-control" placeholder="" name="date" required>
+    <input type="date" class="form-control" placeholder="" name="date" required value="{{ $advertisement->date }}">
 </div>
 
 <div class="head-ta w-100 mb-4">
@@ -66,22 +66,19 @@
 
     <div class="o-features">
         <ul class="row d-flex">
-            <li class="col-md-4">
-                <input id="bill" class="checkbox-custom" value="bill_included" name="features[]" type="checkbox">
-                <label for="bill" class="checkbox-custom-label">@lang('Bills Included')</label>
-            </li>  
-            <li class="col-md-4">
-                <input id="parking" class="checkbox-custom" value="parking" name="features[]" type="checkbox">
-                <label for="parking" class="checkbox-custom-label">@lang('parking')</label>
-            </li> 
-            <li class="col-md-4">
-                <input id="garden" class="checkbox-custom" value="garden_access" name="features[]" type="checkbox">
-                <label for="garden" class="checkbox-custom-label">@lang('Garden Access')</label>
-            </li> 
-            <li class="col-md-4">
-                <input id="fire" class="checkbox-custom" value="fire_access" name="features[]" type="checkbox">
-                <label for="fire" class="checkbox-custom-label">@lang('Fire Access')</label>
-            </li> 
+            @php
+                $features = explode(',',$advertisement->features);
+            @endphp
+
+            @foreach ($features as $feature)
+                <li class="col-md-4">
+                    <input id="{{ $feature }}" class="checkbox-custom" value="{{ $feature }}" name="features[]" type="checkbox" checked>
+                    <label for="{{ $feature }}" class="checkbox-custom-label">
+                        @lang(ucfirst(str_replace('_',' ',$feature)))
+                    
+                    </label>
+                </li>
+            @endforeach
         </ul>
     </div>
 </div>
@@ -95,27 +92,22 @@
 
     <div class="o-features">
         <ul class="row d-flex">
-            <li class="col-md-4">
-                <input id="student" class="checkbox-custom" value="students_allowed" name="tenance[]" type="checkbox">
-                <label for="student" class="checkbox-custom-label">@lang('Students Allowed')</label>
-            </li>  
 
-            <li class="col-md-4">
-                <input id="pets" class="checkbox-custom" value="pets_allowed" name="tenance[]" type="checkbox">
-                <label for="pets" class="checkbox-custom-label">@lang('Pets Allowed')</label>
-            </li> 
-            <li class="col-md-4">
-                <input id="families" class="checkbox-custom" value="families_allowed" name="tenance[]" type="checkbox">
-                <label for="families" class="checkbox-custom-label">@lang('Families Allowed')</label>
-            </li>
-            <li class="col-md-4">
-                <input id="smokers" class="checkbox-custom" value="smokers_allowed" name="tenance[]" type="checkbox">
-                <label for="smokers" class="checkbox-custom-label">@lang('Smokers Allowed')</label>
-            </li>
-            <li class="col-md-4">
-                <input id="dss" class="checkbox-custom" value="dss_income_accepted" name="tenance[]" type="checkbox">
-                <label for="dss" class="checkbox-custom-label">@lang('Dss Income Accepted')</label>
-            </li>
+            @php
+                $tenance = explode(',',$advertisement->tenance);
+            @endphp
+
+            @foreach ($tenance as $tenance)
+                <li class="col-md-4">
+                    <input id="{{ $tenance }}" class="checkbox-custom" value="{{ $tenance }}" name="tenance[]" type="checkbox" checked>
+                    <label for="{{ $tenance }}" class="checkbox-custom-label">
+                        @lang(ucfirst(str_replace('_',' ',$tenance)))
+                    
+                    </label>
+                </li>
+            @endforeach
+
+
 
         </ul>
     </div>
@@ -123,7 +115,12 @@
 
 
 
-<div class="upload__box">
+@php
+
+$photos = explode(',',$advertisement->photo);
+
+@endphp
+   <div class="upload__box">
     <div class="upload__btn-box">
         <h6>Drag a photo here, or click "Add Photos" to select your photos</h6>
       <label class="upload__btn">
@@ -132,5 +129,16 @@
         <input type="file" multiple="" data-max_length="20" class="upload__inputfile" name="photo[]">
       </label>
     </div>
-    <div class="upload__img-wrap"></div>
-  </div> 
+    <div class="upload__img-wrap">
+        @foreach ($photos as $photo)
+        
+
+        <div class="upload__img-box">
+            <div style="background-image: url({{ asset('assets/images/advertisement/'.$photo) }})" data-number="0" data-file="{{ asset('assets/images/advertisement/'.$photo) }}" class="img-bg">
+                <div class="upload__img-close"></div>
+            </div>
+
+        </div>
+        @endforeach
+    </div>
+  </div>  

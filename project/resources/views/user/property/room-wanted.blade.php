@@ -2,7 +2,7 @@
 
 <div class="form-group col-md-6">
     <label>@lang('Where do you want to live? ')</label>
-    <input type="text" class="form-control" placeholder="Street Name" name="street" required>
+    <input type="text" class="form-control" placeholder="Street Name" name="street" value="{{ $advertisement->street }}" required>
 </div>
 
 {{-- input subcategory_id  --}}
@@ -10,7 +10,7 @@
 
 <div class="form-group col-md-6">
     <label>@lang('Post Code')</label>
-    <input type="text" class="form-control" placeholder="Post Code" name="postcode" required>
+    <input type="text" class="form-control" placeholder="Post Code" name="postcode" value="{{ $advertisement->postcode }}" required>
 </div>
 
 <input type="hidden" name="type" value="rent">
@@ -18,93 +18,96 @@
 
 <div class="form-group col-md-6">
     <label>@lang('Town')</label>
-    <input type="text" class="form-control" placeholder="Town" name="location" required>
+    <input type="text" class="form-control" placeholder="Town" name="location" value="{{ $advertisement->location }}" required>
 </div>
 
 <div class="form-group col-md-6">
     <label>@lang('Buddy up')</label>
     <select id="buddy_up" class="form-control" name="is_buddy_up">
-        <option value="1">@lang('Yes')</option> 
-        <option value="0">@lang('No')</option>
-        
+        <option {{ $advertisement->is_buddy_up==1 ? 'selected': '' }} value="1">@lang('Yes')</option> 
+        <option {{ $advertisement->is_buddy_up==0 ? 'selected': '' }} value="0">@lang('No')</option>
     </select>
 </div>
 
 <div class="form-group col-md-6">
     <label>@lang('Room Sizes')</label>
     <select id="room" class="form-control" name="room_sizes">
-        <option value="0">@lang('A single room')</option> 
-        <option value="1">@lang('Double room')</option> 
+        <option {{ $advertisement->room_sizes==0 ? 'selected': '' }} value="0">@lang('A single room')</option> 
+        <option {{ $advertisement->room_sizes==1 ? 'selected': '' }} value="1">@lang('Double room')</option> 
     </select>
 </div>
 
 <div class="form-group col-md-6">
     <label>@lang('Period Accomodation Needed For')</label>
-    <input type="number" class="form-control" placeholder="Maximum number in months" name="period_accomodation" required>
+    <input type="number" class="form-control" value="{{ $advertisement->period_accomodation }}"" placeholder="Maximum number in months" name="period_accomodation" required>
 </div>
 
 <div class="form-group col-md-6">
     <label>@lang('I want to stay in the accommodation')</label>
     <select id="room" class="form-control" name="accomodation_for">
-        <option value="7 days aa week">@lang('7 Days a week')</option> 
-        <option value="Mon to Fri Only">@lang('Mon to Fri Only')</option> 
-        <option value="Weekends Only">@lang('Weekends Only')</option>
+        <option {{ $advertisement->accomodation_for=="7 days aa week" ? 'selected':'' }} value="7 days aa week">@lang('7 Days a week')</option> 
+        <option {{ $advertisement->accomodation_for=="Mon to Fri Only" ? 'selected':'' }} value="Mon to Fri Only">@lang('Mon to Fri Only')</option> 
+        <option {{ $advertisement->accomodation_for=="Weekends Only" ? 'selected':'' }} value="Weekends Only">@lang('Weekends Only')</option>
     </select>
 </div>
 
 <div class="form-group col-md-6">
     <label>@lang('Budget')</label>
-    <input type="number" class="form-control" placeholder="{{ $currency->name }} budget per month" name="budget" required>
+    <input type="number" value="{{ $advertisement->budget }}" class="form-control" placeholder="{{ $currency->name }} budget per month" name="budget" required>
 </div>
 
 
 <div class="form-group col-md-6">
     <label>@lang('I am available to move in from')</label>
-    <input type="date" class="form-control" placeholder="" name="move_from" required>
+    <input type="date" value="{{ $advertisement->move_from }}" class="form-control" placeholder="" name="move_from" required>
 </div>
 
 <div class="form-group col-md-12 mb-5">
     <label>@lang('I would prefer these amenities')</label>
     <div class="o-features">
         <ul class="row d-flex">
+            @php
+                $amenities = explode(',', $advertisement->amenities);
+            @endphp
+
             <li class="col-md-4">
-                <input id="furnish" class="checkbox-custom" value="Furnish" name="amenities[]" type="checkbox">
-                <label for="furnish" class="checkbox-custom-label">@lang('Furnished')</label>
+                <input id="furnish" {{ in_array('Furnish',$amenities) ? 'checked':'' }} checked class="checkbox-custom" value="Furnish" name="amenities[]" type="checkbox">
+                <label for="furnish"  class="checkbox-custom-label">@lang('Furnished')</label>
             </li>  
             <li class="col-md-4">
-                <input id="living" class="checkbox-custom" value="Shared living room" name="amenities[]" type="checkbox">
+                <input id="living" {{ in_array('Shared living room',$amenities) ? 'checked':'' }} class="checkbox-custom" value="Shared living room" name="amenities[]" type="checkbox">
                 <label for="living" class="checkbox-custom-label">@lang('Shared living room')</label>
             </li> 
             <li class="col-md-4">
-                <input id="washing" class="checkbox-custom" value="Washing machine" name="amenities[]" type="checkbox">
+                <input id="washing" {{ in_array('Washing machine',$amenities) ? 'checked':'' }} class="checkbox-custom" value="Washing machine" name="amenities[]" type="checkbox">
                 <label for="washing" class="checkbox-custom-label">@lang('Washing machine')</label>
             </li> 
             <li class="col-md-4">
-                <input id="garden" class="checkbox-custom" value="Garden or roof terrace" name="amenities[]" type="checkbox">
+                <input id="garden" {{ in_array('Garden or roof terrace',$amenities) ? 'checked':'' }}  class="checkbox-custom" value="Garden or roof terrace" name="amenities[]" type="checkbox">
                 <label for="garden" class="checkbox-custom-label">@lang('Garden or roof terrace')</label>
             </li> 
             <li class="col-md-4">
-                <input id="balcony" class="checkbox-custom" value="Balcony or patio" name="amenities[]" type="checkbox">
+                <input id="balcony" {{ in_array('Balcony or patio',$amenities) ? 'checked':'' }}  class="checkbox-custom" value="Balcony or patio" name="amenities[]" type="checkbox">
                 <label for="balcony" class="checkbox-custom-label">@lang('Balcony/patio')</label>
             </li> 
             <li class="col-md-4">
-                <input id="parking" class="checkbox-custom" value="Parking" name="amenities[]" type="checkbox">
+                <input id="parking" {{ in_array('Parking',$amenities) ? 'checked':'' }} class="checkbox-custom" value="Parking" name="amenities[]" type="checkbox">
                 <label for="parking" class="checkbox-custom-label">@lang('Parking')</label>
             </li>
             <li class="col-md-4">
-                <input id="garage" class="checkbox-custom" value="Garage" name="amenities[]" type="checkbox">
+                <input id="garage" {{ in_array('Garage',$amenities) ? 'checked':'' }} class="checkbox-custom" value="Garage" name="amenities[]" type="checkbox">
                 <label for="garage" class="checkbox-custom-label">@lang('Garage')</label>
             </li>
             <li class="col-md-4">
-                <input id="disabled" class="checkbox-custom" value="Disabled access" name="amenities[]" type="checkbox">
+                <input id="disabled" {{ in_array('Disabled access',$amenities) ? 'checked':'' }} class="checkbox-custom" value="Disabled access" name="amenities[]" type="checkbox">
                 <label for="disabled" class="checkbox-custom-label">@lang('Disabled access')</label>
             </li>
             <li class="col-md-4">
-                <input id="broadband" class="checkbox-custom" value="Broadband" name="amenities[]" type="checkbox">
+                <input id="broadband" {{ in_array('Broadband',$amenities) ? 'checked':'' }} class="checkbox-custom" value="Broadband" name="amenities[]" type="checkbox">
                 <label for="broadband" class="checkbox-custom-label">@lang('Broadband')</label>
             </li>
             <li class="col-md-4">
-                <input id="ensuite" class="checkbox-custom" value="En-suite" name="amenities[]" type="checkbox">
+                <input id="ensuite" {{ in_array('En-suite',$amenities) ? 'checked':'' }}  class="checkbox-custom" value="En-suite" name="amenities[]" type="checkbox">
                 <label for="ensuite" class="checkbox-custom-label">@lang('En-suite')</label>
             </li>
         </ul>
@@ -118,52 +121,57 @@
 {{-- input hidden --}}
 <input type="hidden" name="is_room_wanted" value="1">
 
+@php
+    $about = json_decode($advertisement->about_you, true);
+@endphp
+
+
 <div class="form-group col-md-6">
     <label>@lang('Age')</label>
-    <input type="number" class="form-control" placeholder="Your age" name="age" required>
+    <input type="number" class="form-control" value="{{ $about['age'] }}" placeholder="Your age" name="age" required>
 </div>
 
 <div class="form-group col-md-6">
     <label>@lang('Occupation')</label>
-    <input type="text" class="form-control" placeholder="Your occupation" name="occupation" required>
+    <input type="text" class="form-control" value="{{ $about['occupation'] }}" placeholder="Your occupation" name="occupation" required>
 </div>
 
 <div class="form-group col-md-6">
     <label>@lang('Your Nationality')</label>
-    <input type="text" class="form-control" placeholder="Your Nationality" name="nationality" required>
+    <input type="text" class="form-control" value="{{ $about['nationality'] }}" placeholder="Your Nationality" name="nationality" required>
 </div>
 
 <div class="form-group col-md-6">
     <label>@lang('Language You Speak')</label>
-    <input type="text" class="form-control" placeholder="Your Preferred Language" name="language" required>
+    <input type="text" class="form-control" value="{{ $about['language'] }}" placeholder="Your Preferred Language" name="language" required>
 </div>
 
 <div class="form-group col-md-6">
     <label>@lang('Gender')</label>
     <select id="room" class="form-control" name="gender">
-        <option value="female">@lang('Female')</option> 
-        <option value="male">@lang('Male')</option> 
+        <option {{ $about['gender']=='female' ? 'selected':'' }} value="female">@lang('Female')</option> 
+        <option {{ $about['gender']=='male' ? 'selected':'' }} value="male">@lang('Male')</option> 
     </select>
 </div>
 
 <div class="form-group col-md-6">
     <label>@lang('Your Name')</label>
-    <input type="text" class="form-control" placeholder="Your Name" name="your_name" required>
+    <input type="text" value="{{ $about['name'] }}" class="form-control" placeholder="Your Name" name="your_name" required>
 </div>
 
 <div class="form-group col-md-6">
     <label>@lang('Do you Smoke?')</label>
     <select id="room" class="form-control" name="smoke">
-        <option value="0">@lang('No')</option> 
-        <option value="1">@lang('Yes')</option> 
+        <option {{ $about['smoke'] == 0 ? 'selected':'' }} value="0">@lang('No')</option> 
+        <option {{ $about['smoke'] == 1 ? 'selected':'' }} value="1">@lang('Yes')</option> 
     </select>
 </div>
 
 <div class="form-group col-md-6">
     <label>@lang('Do you have any Pets?')</label>
     <select id="room" class="form-control" name="pets">
-        <option value="0">@lang('No')</option> 
-        <option value="1">@lang('Yes')</option> 
+        <option {{ $about['pets'] == 0 ? 'selected':'' }} value="0">@lang('No')</option> 
+        <option {{ $about['pets'] == 1 ? 'selected':'' }} value="1">@lang('Yes')</option> 
     </select>
 </div>
 
