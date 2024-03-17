@@ -23,7 +23,7 @@
 
 <div class="form-group col-md-6">
     <label>@lang('Road Name')</label>
-    <input type="text" class="form-control" placeholder="Road Name" name="street" required>
+    <input type="text" class="form-control" placeholder="Road Name" name="street" value="{{ $advertisement ? $advertisement->street :'' }}" required>
 </div>
 
 <div class="form-group col-md-6">

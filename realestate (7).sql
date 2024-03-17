@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 05, 2024 at 12:32 PM
+-- Generation Time: Mar 17, 2024 at 11:49 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -155,7 +155,6 @@ CREATE TABLE `advertisements` (
 --
 
 INSERT INTO `advertisements` (`id`, `user_id`, `category_id`, `subcategory_id`, `location`, `postcode`, `title`, `buyer_type`, `budget`, `is_image`, `description`, `amenities`, `property_type`, `plot_usage`, `plot_size`, `bedroom`, `bathroom`, `reception`, `require`, `strategy`, `region`, `street`, `furnished`, `train_station`, `hmo`, `cost`, `photo`, `buying_for`, `floor_pic`, `occupancy`, `condition`, `market_valuation`, `gross`, `sale`, `type`, `is_buddy_up`, `is_tenancy`, `tenant_details`, `features`, `tenance`, `created_at`, `updated_at`, `room_sizes`, `period_accomodation`, `accomodation_for`, `move_from`, `about_you`, `about_flatmte`) VALUES
-(7, 1, 11, 3, 'asdf', NULL, 'sdfasdf', 'mortgage', 50, 0, 'sdfgsdfgsdfg', NULL, NULL, 'Commercial', '65', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'living', NULL, NULL, NULL, NULL, NULL, NULL, 'buy', NULL, 0, NULL, NULL, NULL, '2024-01-15 09:20:30', '2024-01-15 09:20:30', NULL, NULL, NULL, NULL, NULL, NULL),
 (8, 1, 11, 4, 'Uttara, Sector 10, Dhaka', NULL, 'test property', 'mortgage', 20, 0, 'asdfasdfassdf', 'Garden,Balcony', 'Houses,Flats', NULL, NULL, '1,2', '1,2', '1,2', 'Both', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'investment', NULL, NULL, NULL, NULL, NULL, NULL, 'buy', NULL, 0, NULL, NULL, NULL, '2024-01-15 09:37:39', '2024-01-15 09:37:39', NULL, NULL, NULL, NULL, NULL, NULL),
 (9, 1, 11, 4, 'Dhaka, Sylhet, Noakhali', NULL, 'I am looking for a Appartment', 'mix', 100, 0, 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Perspiciatis optio ut rerum placeat aperiam explicabo omnis minima vitae ratione possimus?', 'Garden,Balcony,Garage,Swimming Pool,Gym', 'Houses,Flats,Bungalows', NULL, NULL, '1,2,3', '1,2,3', '1,2,3', 'Both', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'living', NULL, NULL, NULL, NULL, NULL, NULL, 'buy', NULL, 0, NULL, NULL, NULL, '2024-01-16 08:53:15', '2024-01-16 08:53:15', NULL, NULL, NULL, NULL, NULL, NULL),
 (10, 1, 11, 3, 'Dhaka, Sylhet, Noakhali', NULL, 'This is test', 'mortgage', 50, 0, 'This is test description', NULL, NULL, 'Residential', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'investment', NULL, NULL, NULL, NULL, NULL, NULL, 'buy', NULL, 0, NULL, NULL, NULL, '2024-01-18 08:33:14', '2024-01-18 08:33:14', NULL, NULL, NULL, NULL, NULL, NULL),
@@ -3846,6 +3845,51 @@ INSERT INTO `testimonials` (`id`, `name`, `designation`, `photo`, `message`) VAL
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `transactions`
+--
+
+CREATE TABLE `transactions` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `trnx` varchar(255) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `charge` decimal(20,10) NOT NULL DEFAULT 0.0000000000,
+  `amount` decimal(20,10) NOT NULL,
+  `currency_id` int(11) NOT NULL,
+  `remark` varchar(255) NOT NULL,
+  `type` varchar(10) DEFAULT NULL,
+  `details` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `transactions`
+--
+
+INSERT INTO `transactions` (`id`, `trnx`, `user_id`, `charge`, `amount`, `currency_id`, `remark`, `type`, `details`, `created_at`, `updated_at`) VALUES
+(1, 'J7swFMWqMnzF', 17, 0.0000000000, 20.0000000000, 1, 'add_balance', '+', 'Deposit Via Paypal', '2023-12-30 02:54:37', '2023-12-30 02:54:37'),
+(2, '7msl7qewrhIb', 17, 0.0000000000, 30.0000000000, 1, 'add_balance', '+', 'Deposit Via Paypal', '2023-12-30 03:00:02', '2023-12-30 03:00:02'),
+(3, 'm1RtXSTYxHaH', 17, 0.0000000000, 40.0000000000, 1, 'add_balance', '+', 'Deposit Via Paypal', '2023-12-30 03:03:16', '2023-12-30 03:03:16'),
+(4, 'OAiQeN5ZVm6V', 17, 0.0000000000, 30.0000000000, 1, 'add_balance', '+', 'Deposit Via Stripe', '2023-12-30 03:41:09', '2023-12-30 03:41:09'),
+(5, 'EZFTX0CVM9SE', 17, 3.0000000000, 100.0000000000, 1, 'withdraw_money', '-', 'Withdraw money', '2023-12-30 05:04:45', '2023-12-30 05:04:45'),
+(6, 'Bjnl5ciRo02h', 17, 0.0000000000, 50.0000000000, 1, 'add_balance', '+', 'Deposit Via Paypal', '2024-02-24 23:56:59', '2024-02-24 23:56:59'),
+(7, 'ROPrFCxg82cY', 16, 0.0000000000, 5.0000000000, 1, 'add_balance', '+', 'Deposit Via Paypal', '2024-02-28 05:53:33', '2024-02-28 05:53:33'),
+(8, 'VOXENQXCV7PP', 17, 3.2000000000, 120.0000000000, 1, 'withdraw_money', '-', 'Withdraw money', '2024-03-02 00:41:09', '2024-03-02 00:41:09'),
+(9, 'h47JQgUa8H3I', 17, 0.0000000000, 0.0001184730, 10, 'add_balance', '+', 'Deposit Via Stripe', '2024-03-03 03:14:03', '2024-03-03 03:14:03'),
+(10, 'HhfMxaYN5THm', 17, 0.0000000000, 0.0236946038, 10, 'add_balance', '+', 'Deposit Via Stripe', '2024-03-03 03:19:21', '2024-03-03 03:19:21'),
+(11, 'N7gGP1LqPVqi', 17, 0.0000000000, 10.0000000000, 1, 'add_balance', '+', 'Deposit Via Stripe', '2024-03-03 03:21:53', '2024-03-03 03:21:53'),
+(12, 'P5U8VF0FGA6Z', 17, 52.0000000000, 5000.0000000000, 1, 'withdraw_money', '-', 'Withdraw money', '2024-03-03 03:25:09', '2024-03-03 03:25:09'),
+(13, 'XxGq5Q6eOvFy', 17, 0.0000000000, 0.0088866138, 10, 'add_balance', '+', 'Deposit Via Razorpay', '2024-03-03 05:08:56', '2024-03-03 05:08:56'),
+(14, 'fmt6fIZLF3fh', 17, 0.0000000000, 0.0088866138, 10, 'add_balance', '+', 'Deposit Via Razorpay', '2024-03-03 05:14:53', '2024-03-03 05:14:53'),
+(15, 'IJdQtp4aP9Kb', 17, 0.0000000000, 1.3331626885, 10, 'add_balance', '+', 'Deposit Via Razorpay', '2024-03-03 05:25:10', '2024-03-03 05:25:10'),
+(16, 'mHPtEOmD6T3H', 17, 0.0000000000, 10.0000000000, 1, 'add_balance', '+', 'Deposit Via Paypal', '2024-03-04 02:15:06', '2024-03-04 02:15:06'),
+(17, 'HiD3AX4dbIrW', 17, 0.0000000000, 10.0000000000, 1, 'add_balance', '+', 'Deposit Via Stripe', '2024-03-04 02:21:21', '2024-03-04 02:21:21'),
+(18, '8IVILRQOINXP', 17, 7.0000000000, 500.0000000000, 1, 'withdraw_money', '-', 'Withdraw money', '2024-03-04 02:52:41', '2024-03-04 02:52:41'),
+(19, 'V6WCWV1MYPFV', 17, 0.0000000000, 500.0000000000, 1, 'withdraw_reject', '+', 'Withdraw request rejected', '2024-03-04 04:23:16', '2024-03-04 04:23:16');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -3868,6 +3912,7 @@ CREATE TABLE `users` (
   `is_plan` int(11) DEFAULT NULL,
   `is_verify` int(2) NOT NULL DEFAULT 0,
   `remember_token` varchar(100) DEFAULT NULL,
+  `kyc_status` int(11) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -3876,13 +3921,13 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `username`, `email`, `photo`, `phone`, `country`, `city`, `address`, `zip`, `status`, `email_verified`, `verification_link`, `password`, `balance`, `is_plan`, `is_verify`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'User Hasan', NULL, 'user@gmail.com', '1706536283.png', '+8801976814812', 'Belarus', 'United Kingdom', 'Tangail,Dhaka,Bangladesh', '1234', 1, NULL, NULL, '$2y$10$bpzr5I3WnA1FKp7SR0meoeJgmXT5Ux7DovdWCUquPvWdNgjXZHS5i', 900.5495728445, 5, 0, 'lUQnoM1HC7lcnHgG1FDnl68XKecm7uYshCQdaOuxfmCKVrfCOrIVT62Qxn4D', NULL, '2024-01-29 08:07:31'),
-(4, 'User Hasan', NULL, 'showrabhasan7515@gmail.com', 'JIC1588136853people.png', '17283320', 'Belarus', 'UserRequest', 'Tangail,Dhaka,Bangladesh', '1234', 1, NULL, NULL, '$2y$10$Muu9xoTvxsx6mHh3yjqLTecTKADrG7YMYmGIqWIuz.YbDoR97Cqw.', 0, NULL, 0, NULL, NULL, '2021-12-14 00:04:01'),
-(5, 'Test Product1', NULL, 'shaon@gmail.com', NULL, '172833200', NULL, NULL, NULL, NULL, 1, 'Yes', '521dabcadf15fabf6eb8d08bd960942a', '$2a$12$6eVkxqi9PbsGAg.uRBoyOOND8oZaCH8IHtss5FFVPb0k.64u1aSW.', 0, NULL, 0, 'rLpl6P782AXzb2zKX8qqc62W0TblP8v0nMK4yC7JU8UF76rHAQYnx7ZTeULP', '2021-12-18 23:30:31', '2021-12-18 23:30:31'),
-(8, 'pranab Sarker', 'pronob', 'pronobsarker16@gmail.com', NULL, '+8801976814812', NULL, NULL, NULL, NULL, 1, 'No', NULL, '$2y$10$cGZdaxAzxk0lpyXWbGfukuLxnvyr1HJw7Y39wAx092ReKNu1S.BFC', 0, NULL, 0, '9sN9yNscPQYxnr7Anf00DfcGctShnZSfS7Sow0vhc96TOIkIo5ZemykpyCBg', '2023-11-11 01:01:54', '2023-11-11 01:01:54'),
-(9, 'software', 'softbakery', 'softwarebakery71@gmail.com', NULL, '+8801976814812', NULL, NULL, NULL, NULL, 1, 'No', '1444e0ba77c86e8b08b8d301e56e1ac4', '$2y$10$bKwgbvt8lUaCd3EglY5xMe8y4aFAKCv9vZWV8AxDh0NY5Z.KpJ0I2', 0, NULL, 0, NULL, '2024-01-30 08:39:31', '2024-01-30 08:39:31'),
-(10, 'pranab Sarker', 'newuser', 'pronobsarker1600@gmail.com', NULL, '+8801976814812', NULL, NULL, NULL, NULL, 1, 'No', '415ced504fab6c810410df3e11ed4098', '$2y$10$KCMBf.zsRLIuHfM0ghGaj.MRrSkY605TMzAlNDS4XSm9ezaJWvnYa', 0, NULL, 0, NULL, '2024-01-30 08:42:38', '2024-01-30 08:42:38');
+INSERT INTO `users` (`id`, `name`, `username`, `email`, `photo`, `phone`, `country`, `city`, `address`, `zip`, `status`, `email_verified`, `verification_link`, `password`, `balance`, `is_plan`, `is_verify`, `remember_token`, `kyc_status`, `created_at`, `updated_at`) VALUES
+(1, 'User Hasan', NULL, 'user@gmail.com', '1706536283.png', '+8801976814812', 'Belarus', 'United Kingdom', 'Tangail,Dhaka,Bangladesh', '1234', 1, NULL, NULL, '$2y$10$bpzr5I3WnA1FKp7SR0meoeJgmXT5Ux7DovdWCUquPvWdNgjXZHS5i', 900.5495728445, 5, 0, 'lUQnoM1HC7lcnHgG1FDnl68XKecm7uYshCQdaOuxfmCKVrfCOrIVT62Qxn4D', 0, NULL, '2024-03-17 01:42:57'),
+(4, 'User Hasan', NULL, 'showrabhasan7515@gmail.com', 'JIC1588136853people.png', '17283320', 'Belarus', 'UserRequest', 'Tangail,Dhaka,Bangladesh', '1234', 1, NULL, NULL, '$2y$10$Muu9xoTvxsx6mHh3yjqLTecTKADrG7YMYmGIqWIuz.YbDoR97Cqw.', 0, NULL, 0, NULL, NULL, NULL, '2021-12-14 00:04:01'),
+(5, 'Test Product1', NULL, 'shaon@gmail.com', NULL, '172833200', NULL, NULL, NULL, NULL, 1, 'Yes', '521dabcadf15fabf6eb8d08bd960942a', '$2a$12$6eVkxqi9PbsGAg.uRBoyOOND8oZaCH8IHtss5FFVPb0k.64u1aSW.', 0, NULL, 0, 'rLpl6P782AXzb2zKX8qqc62W0TblP8v0nMK4yC7JU8UF76rHAQYnx7ZTeULP', NULL, '2021-12-18 23:30:31', '2021-12-18 23:30:31'),
+(8, 'pranab Sarker', 'pronob', 'pronobsarker16@gmail.com', NULL, '+8801976814812', NULL, NULL, NULL, NULL, 1, 'No', NULL, '$2y$10$cGZdaxAzxk0lpyXWbGfukuLxnvyr1HJw7Y39wAx092ReKNu1S.BFC', 0, NULL, 0, '9sN9yNscPQYxnr7Anf00DfcGctShnZSfS7Sow0vhc96TOIkIo5ZemykpyCBg', NULL, '2023-11-11 01:01:54', '2023-11-11 01:01:54'),
+(9, 'software', 'softbakery', 'softwarebakery71@gmail.com', NULL, '+8801976814812', NULL, NULL, NULL, NULL, 1, 'No', '1444e0ba77c86e8b08b8d301e56e1ac4', '$2y$10$bKwgbvt8lUaCd3EglY5xMe8y4aFAKCv9vZWV8AxDh0NY5Z.KpJ0I2', 0, NULL, 0, NULL, NULL, '2024-01-30 08:39:31', '2024-01-30 08:39:31'),
+(10, 'pranab Sarker', 'newuser', 'pronobsarker1600@gmail.com', NULL, '+8801976814812', 'United Kingdom', NULL, NULL, NULL, 1, 'Yes', '415ced504fab6c810410df3e11ed4098', '$2y$10$KCMBf.zsRLIuHfM0ghGaj.MRrSkY605TMzAlNDS4XSm9ezaJWvnYa', 0, NULL, 0, NULL, 0, '2024-01-30 08:42:38', '2024-03-10 02:15:31');
 
 -- --------------------------------------------------------
 
@@ -3951,6 +3996,13 @@ CREATE TABLE `verifications` (
   `id_image` varchar(255) DEFAULT NULL,
   `status` tinyint(2) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `verifications`
+--
+
+INSERT INTO `verifications` (`id`, `user_id`, `qualification`, `criminal_record`, `id_card`, `id_image`, `status`) VALUES
+(1, 1, 'aksjdfhlasjdhfuyerjkasdfagsdfgh', '1710655930.png', '123456789', '1710655930.png', 0);
 
 --
 -- Indexes for dumped tables
@@ -4172,6 +4224,12 @@ ALTER TABLE `teams`
 -- Indexes for table `testimonials`
 --
 ALTER TABLE `testimonials`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `transactions`
+--
+ALTER TABLE `transactions`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -4408,6 +4466,12 @@ ALTER TABLE `testimonials`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT for table `transactions`
+--
+ALTER TABLE `transactions`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+
+--
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
@@ -4429,7 +4493,7 @@ ALTER TABLE `user_owner_conversations`
 -- AUTO_INCREMENT for table `verifications`
 --
 ALTER TABLE `verifications`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

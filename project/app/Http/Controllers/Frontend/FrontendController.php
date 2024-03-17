@@ -367,4 +367,14 @@ class FrontendController extends Controller
         }
         $data->save();
     }
+
+
+    public function userDetails($id){
+        $user = User::findOrFail($id);
+
+        $advert = Advertisement::where('user_id', $user->id)->get();
+        $services = Service::where('user_id', $user->id)->get();
+        return view('frontend.userDetails', compact('user', 'advert', 'services'));
+
+    }
 }

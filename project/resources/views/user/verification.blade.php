@@ -55,13 +55,13 @@
                                     <div class="col-md-6 ShowImage mb-3 text-center">
                                         {{-- label --}}
                                         <label for="image" class="d-none">@lang('NID Image')</label>
-                                        <img src="{{ asset('assets/images/'. getPhoto(''))}}" class="img-fluid w-25" alt="image" width="400">
+                                        <img src="{{ asset('assets/images/no-image.jpg')}}" class="img-fluid w-25" alt="image" width="400">
                                     </div>
 
                                     <div class="col-md-6 ShowImage2 mb-3 text-center">
                                         {{-- label --}}
                                         <label for="image" class="d-none">@lang('Criminal Record')</label>
-                                        <img src="{{ asset('assets/images/'. getPhoto(''))}}" class="img-fluid w-25" alt="image" width="400">
+                                        <img src="{{ asset('assets/images/no-image.jpg')}}" class="img-fluid w-25" alt="image" width="400">
                                     </div>
 
                                     <div class="form-group col-md-6">

@@ -17,6 +17,10 @@
                 <a href="{{route('admin.user.index')}}" class="nav-link"><i class="fas fa-users"></i><span>@lang('Manage
                     User')</span></a>
              </li>
+
+             <li class="nav-item {{menu(['admin.user.verification'])}}">
+                <a href="{{route('admin.user.verification')}}" class="nav-link"><i class="fas fa-users"></i><span>@lang('User Verification')</span></a>
+             </li>
               
     
     

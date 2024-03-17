@@ -39,6 +39,7 @@ use App\Http\Controllers\User\StripeController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\User\UserLoginController;
 use App\Models\Country;
+use Illuminate\Database\Console\Migrations\StatusCommand;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
@@ -73,6 +74,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('balance-modify', [ManageUserController::class, 'modifyBalance'])->name('user.balance.modify')->middleware('permission:user balance modify');
         Route::get('user-login/info/{id}', [ManageUserController::class, 'loginInfo'])->name('user.login.info')->middleware('permission:user login logs');
 
+        Route::get('user/verification', [ManageUserController::class, 'verification'])->name('user.verification');
+        // StatusCommand
+        Route::get('user/verification/{id1}/{id2}', [ManageUserController::class, 'verificationStatus'])->name('verification.status');
 
 
         // Transaction Routes
@@ -384,6 +388,12 @@ Route::middleware(['maintenance'])->group(function () {
         Route::post('/profile/update', [UserController::class,'profileUpdate'])->name('user.profile.update');
 
         Route::get('/my-properties', [MyPropertyController::class,'index'])->name('user.my.properties');
+        // property delete 
+        Route::delete('/property/delete/{id}', [MyPropertyController::class,'destroy'])->name('user.property.delete');
+        // property edit
+        Route::get('/property/edit/{id}', [MyPropertyController::class,'edit'])->name('user.property.edit');
+        // property update
+        Route::post('/property/update/{id}', [MyPropertyController::class,'update'])->name('user.property.update');
 
         Route::post('/stripe-submit', [StripeController::class,'store'])->name('stripe.submit');
         Route::get('/checkout/payment/success', [StripeController::class,'success'])->name('checkout.success');
@@ -440,6 +450,9 @@ Route::middleware(['maintenance'])->group(function () {
         Route::post('/contact/submit', [FrontendController::class, 'contactSubmit'])->name('front.contact.submit');
 
     });
+
+    // blog category
+    Route::get('user/details/{id}', [FrontendController::class, 'userDetails'])->name('user.details');
     
    
 

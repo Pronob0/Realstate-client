@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Verification extends Model
 {
     use HasFactory;
+    public $timestamps = false;
     protected $fillable = [
         'user_id',
         'qualification',
@@ -17,4 +18,8 @@ class Verification extends Model
         'status',
         
     ];
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }

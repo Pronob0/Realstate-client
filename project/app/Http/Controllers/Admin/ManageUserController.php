@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Generalsetting;
 use App\Models\Subscriber;
+use App\Models\Verification;
 use Illuminate\Support\Facades\Auth;
 
 class ManageUserController extends Controller
@@ -221,6 +222,24 @@ class ManageUserController extends Controller
         $user = User::findOrFail($id);
         $loginInfo = LoginLogs::where('user_id', $id)->latest()->paginate(15);
         return view('admin.user.login_info', compact('loginInfo', 'user'));
+    }
+
+    public function verification(){
+        $users = Verification::orderBy('id','DESC')->paginate(15);
+        return view('admin.verification',compact('users'));
+    }
+
+    public function verificationStatus($id1 , $id2){
+        $verify = Verification::findOrFail($id1);
+        $verify->status = $id2;
+
+        $user = User::findOrFail($verify->user_id);
+        $user->kyc_status = $id2;
+        $user->update();
+
+        $verify->update();
+        return back()->with('success','Verification status updated');
+        
     }
 
    

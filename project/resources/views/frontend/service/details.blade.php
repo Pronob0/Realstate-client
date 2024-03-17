@@ -118,7 +118,7 @@
                         <div class="agent-title">
                             <div class="agent-photo"><img src="{{ getPhoto($service->user->photo) }}" alt=""></div>
                             <div class="agent-details">
-                                <h4><a href="#">@lang('Posted By')</a></h4>
+                                <h4><a href="{{ route('user.details',$service->user->id) }}">@lang('Posted By')</a></h4>
                             </div>
                             <div class="clearfix"></div>
                         </div>

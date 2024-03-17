@@ -60,9 +60,13 @@
                               <td data-label="@lang('Actions')">
                                 <a target="__blank" href="{{ route('advertise.details',$item->id) }}" class="btn btn-sm btn-primary"><i
                                     class="fa fa-eye"></i></a>
-                                    <a href="javascript:void(0)" class="btn btn-danger  btn-sm remove mb-1"
-                                    data-route="{{ route('admin.property.destroy', $item) }}" data-toggle="tooltip"
-                                    title="@lang('Delete')"><i class="fas fa-trash"></i></a>
+
+                                    <a href="{{ route('user.property.edit',$item->id) }}" class="btn btn-sm btn-info"><i class="fa fa-edit"></i></a>
+                                    
+                                    <a href="javascript:;" data-href="{{ route('user.property.delete',$item->id) }}" class="btn btn-sm btn-danger" data-toggle="modal"
+                                    data-target="#deleteModal"><i class="fa fa-trash"></i></a>
+                                    <!-- Modal -->
+                                
                               </td>
               
                             </tr>
@@ -91,32 +95,54 @@
 <!-- ============================ User Dashboard End ================================== -->
 
 
-<!-- ============================ Call To Action ================================== -->
-<section class="theme-bg call-to-act-wrap">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                
-                <div class="call-to-act">
-                    <div class="call-to-act-head">
-                        <h3>Want to Become a Real Estate Agent?</h3>
-                        <span>We'll help you to grow your career and growth.</span>
-                    </div>
-                    <a href="#" class="btn btn-call-to-act">SignUp Today</a>
+<!-- ============================ Delete Modal ================================== -->
+
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <form action="" method="POST" id="deleteForm">
+            @csrf
+            @method('delete')
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModal">@lang('Delete Confirmation')!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-                
+                <div class="modal-body
+                ">
+                    <p>@lang('Are you sure you want to delete this?')</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">@lang('Close')</button>
+                    <button type="submit" class="btn btn-sm btn-danger">@lang('Delete')</button>
+                </div>
             </div>
-        </div>
+        </form>
     </div>
-</section>
-<!-- ============================ Call To Action End ================================== -->
+</div>
+
+
+
+
+
+
+
+<!-- ============================ Delete Modal ================================== -->
 
 @endsection
 
 @push('js')
-
 <script>
-     
+    'use strict'
+    $(document).ready(function () {
+        //delete modal
+        $('#deleteModal').on('show.bs.modal', function (e) {
+            var link = $(e.relatedTarget).data('href');
+            $('#deleteForm').attr('action', link);
+        });
+    });
 </script>
+
 
 @endpush

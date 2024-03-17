@@ -91,6 +91,12 @@ class UserController extends Controller
 
     public function verificationSubmit(Request $request){
 
+
+        $verify = Verification::where('user_id',auth()->user()->id)->first();
+        if($verify){
+            return redirect()->back()->with('message','Verification already submitted');
+        }
+
         $validator = Validator::make($request->all(),[
             'qualification' => 'required',
             'id_card' => 'required',
@@ -118,6 +124,8 @@ class UserController extends Controller
         $verification = Verification::create($input);
         return redirect()->back()->with('message','Verification submitted successfully');
     }
+
+   
 
 
 }
