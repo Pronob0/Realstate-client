@@ -178,49 +178,63 @@
 <div class="head-ta w-100 mb-4">
     <h3>@lang('Your preferred flatmate')</h3>
 </div>
+@php
+    $mate = json_decode($advertisement->about_flatmte, true);
+@endphp
 <div class="form-group col-md-6">
     <label>@lang('Gender')</label>
     <select id="room" class="form-control" name="mate_gender">
-        <option value="female">@lang('Female')</option> 
-        <option value="male">@lang('Male')</option> 
+        <option {{ $mate['mate_gender']=='female'? 'selected':'' }} value="female">@lang('Female')</option> 
+        <option {{ $mate['mate_gender']=='male'? 'selected':'' }}  value="male">@lang('Male')</option> 
     </select>
 </div>
 
 <div class="form-group col-md-6">
     <label>@lang('Age')</label>
-    <input type="number" class="form-control" placeholder="Prefered age" name="mate_age" required>
+    <input type="number" class="form-control" placeholder="Prefered age" name="mate_age" value="{{ $mate['mate_age'] }}" required>
 </div>
 <div class="form-group col-md-6">
     <label>@lang('Occupation')</label>
-    <input type="text" class="form-control" placeholder="occupation" name="mate_occupation" required>
+    <input type="text" class="form-control" value="{{ $about['mate_occupation'] }}" placeholder="occupation" name="mate_occupation" required>
 </div>
 
 <div class="form-group col-md-6">
     <label>@lang('Smoke?')</label>
     <select id="room" class="form-control" name="mate_smoke">
-        <option value="1">@lang('Dont mind')</option> 
-        <option value="0">@lang('No')</option> 
+        <option {{ $mate['mate_smoke']== 1 ? 'selected':'' }}  value="1">@lang('Dont mind')</option> 
+        <option {{ $mate['mate_smoke']== 0 ? 'selected':'' }} value="0">@lang('No')</option> 
     </select>
 </div>
 
 <div class="form-group col-md-6">
     <label>@lang('Do you have any Pets?')</label>
     <select id="room" class="form-control" name="mate_pets">
-        <option value="0">@lang('No')</option> 
-        <option value="1">@lang('Yes')</option> 
+        <option {{ $mate['mate_pets']== 0 ? 'selected':'' }} value="0">@lang('No')</option> 
+        <option {{ $mate['mate_pets']== 1 ? 'selected':'' }}  value="1">@lang('Yes')</option> 
     </select>
 </div>
 
 
+@php
 
-<div class="upload__box">
+$photos = explode(',',$advertisement->photo);
+
+@endphp
+   <div class="upload__box">
     <div class="upload__btn-box">
         <h6>Drag a photo here, or click "Add Photos" to select your photos</h6>
       <label class="upload__btn">
-       
         <p>Upload images</p>
         <input type="file" multiple="" data-max_length="20" class="upload__inputfile" name="photo[]">
       </label>
     </div>
-    <div class="upload__img-wrap"></div>
-  </div> 
+    <div class="upload__img-wrap">
+        @foreach ($photos as $photo)
+        <div class="upload__img-box">
+            <div style="background-image: url({{ asset('assets/images/advertisement/'.$photo) }})" data-number="0" data-file="{{ asset('assets/images/advertisement/'.$photo) }}" class="img-bg">
+                <div class="upload__img-close"></div>
+            </div>
+        </div>
+        @endforeach
+    </div>
+  </div>   

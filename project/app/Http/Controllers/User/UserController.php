@@ -4,6 +4,8 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Http\Helpers\MediaHelper;
+use App\Models\Service;
+use App\Models\ServiceCategory;
 use App\Models\UserContact;
 use App\Models\UserOwnerConversation;
 use App\Models\Verification;
@@ -125,7 +127,12 @@ class UserController extends Controller
         return redirect()->back()->with('message','Verification submitted successfully');
     }
 
-   
-
+   public function myServices(){
+         $user = auth()->user();
+         $services = $user->services;
+         return view('user.service.index',compact('services'));
+   }
 
 }
+
+

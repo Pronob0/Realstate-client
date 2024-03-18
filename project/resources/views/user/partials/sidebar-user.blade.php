@@ -17,6 +17,11 @@
                
                 <li class="{{ request()->routeIs('user.my.properties') ? 'active' : ''}}"><a href="{{ route('user.my.properties') }}"><i class="ti-layers"></i>@lang('My Properties')</a></li>
 
+                {{-- services  --}}
+                <li class="{{ request()->routeIs('user.my.services') ? 'active' : ''}}"><a href="{{ route('user.my.services') }}"><i class="ti-layers"></i>@lang('My Jobs')</a></li>
+
+                {{-- services  --}}
+
                 @if ($ticket = DB::table('user_contacts')->orderBy('id','desc')->where('user_id',auth()->user()->id)->orWhere('owner_id',auth()->user()->id)->first())
                     <li class="{{ request()->routeIs('user.message') ? 'active' : ''}}"><a href="{{ route('user.message',['ticket' => $ticket->id]) }}"><i class="lni lni-envelope me-2"></i>@lang('Messages')</a></li>
                 @else

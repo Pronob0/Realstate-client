@@ -60,7 +60,7 @@
                                                                         <h5>{{ $data->ticket_number }}</h5>
                                                                         <span>{{ $data->created_at->diffForHumans() }}</span>
                                                                     </div>
-                                                                    <p>{{ $data->phone }}</p>
+                                                                    <a href="{{ route('advertise.details',$data->property_id) }}">{{ $data->property->title }}</a>
                                                                 </div>
                                                             </a>
                                                         </li>

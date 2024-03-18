@@ -14,5 +14,14 @@ class UserContact extends Model
         return $this->hasMany(UserOwnerConversation::class,'contact_id','id');
     }
 
+    // property id  
+    public function user(){
+        return $this->belongsTo(User::class,'user_id','id');
+    }
+
+    public function property(){
+        return $this->belongsTo(Advertisement::class,'property_id','id');
+        
+    }
    
 }

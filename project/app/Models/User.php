@@ -67,6 +67,11 @@ class User extends Authenticatable
         return $this->hasMany(Transaction::class);
     }
 
+    public function services()
+    {
+        return $this->hasMany(Service::class,'user_id','id')->orderby('id','DESC');
+    }
+
     public function IsUserDemo(){
         if ($this->id == 22) {
             return true;

@@ -395,6 +395,12 @@ Route::middleware(['maintenance'])->group(function () {
         // property update
         Route::post('/property/update/{id}', [MyPropertyController::class,'update'])->name('user.property.update');
 
+        // service route
+        Route::get('/my-services', [UserController::class,'myServices'])->name('user.my.services');
+        Route::get('/service/edit/{id}', [UserController::class,'serviceEdit'])->name('user.service.edit');
+        Route::post('/service/update/{id}', [UserController::class,'serviceUpdate'])->name('user.service.update');
+        Route::delete('/service/delete/{id}', [UserController::class,'serviceDelete'])->name('user.service.delete');
+
         Route::post('/stripe-submit', [StripeController::class,'store'])->name('stripe.submit');
         Route::get('/checkout/payment/success', [StripeController::class,'success'])->name('checkout.success');
         Route::get('/stripe/cancle', [StripeController::class,'cancel'])->name('stripe.cancel');
